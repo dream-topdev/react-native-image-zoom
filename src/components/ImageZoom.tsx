@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'expo-image';
+import Image, { FastImageProps } from 'react-native-fast-image';
 import { StyleSheet } from 'react-native';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const AnimatedImage = Animated.createAnimatedComponent(Image);
+const AnimatedImage = Animated.createAnimatedComponent(
+  Image as React.FC<FastImageProps>
+);
 
 const ImageZoom: React.FC<ImageZoomProps> = ({
   uri = '',
@@ -57,7 +59,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({
       <AnimatedImage
         style={[styles.image, style, animatedStyle]}
         source={{ uri }}
-        contentFit="contain"
+        resizeMode="contain"
         onLayout={onImageLayout}
         {...props}
       />

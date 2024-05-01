@@ -1,7 +1,6 @@
-import type { ImageSourcePropType } from 'react-native';
-import type { ImageProps } from 'expo-image';
+import type { FastImageProps } from 'react-native-fast-image';
 
-export type ImageZoomProps = Omit<ImageProps, 'source'> & {
+export type ImageZoomProps = FastImageProps & {
   /**
    * The image's URI, which can be overridden by the `source` prop.
    * @default ''
@@ -61,11 +60,6 @@ export type ImageZoomProps = Omit<ImageProps, 'source'> & {
    * A callback triggered when the image panning ends.
    */
   onPanEnd?: Function;
-  /**
-   * @see https://facebook.github.io/react-native/docs/image.html#source
-   * @default undefined
-   */
-  source?: ImageSourcePropType;
 };
 
 export type ImageZoomUseLayoutProps = Pick<ImageZoomProps, 'onLayout'>;
