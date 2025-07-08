@@ -1,4 +1,4 @@
-import type { FastImageProps } from 'react-native-fast-image';
+import type { FastImageProps } from '@d11/react-native-fast-image';
 
 export type ImageZoomProps = FastImageProps & {
   /**

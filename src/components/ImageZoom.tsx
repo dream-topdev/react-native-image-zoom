@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { FastImageProps } from 'react-native-fast-image';
+import Image, { FastImageProps } from '@d11/react-native-fast-image';
 import { StyleSheet } from 'react-native';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
