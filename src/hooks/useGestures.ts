@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import {
   runOnJS,
@@ -41,6 +41,16 @@ export const useGestures = ({
   const initialFocal = { x: useSharedValue(0), y: useSharedValue(0) };
   const focal = { x: useSharedValue(0), y: useSharedValue(0) };
   const translate = { x: useSharedValue(0), y: useSharedValue(0) };
+
+  // Convert center to shared values to avoid the warning
+  const centerX = useSharedValue(center.x);
+  const centerY = useSharedValue(center.y);
+
+  // Update center shared values when center prop changes
+  useEffect(() => {
+    centerX.value = center.x;
+    centerY.value = center.y;
+  }, [center.x, center.y, centerX, centerY]);
 
   const reset = useCallback(() => {
     'worklet';
@@ -126,8 +136,10 @@ export const useGestures = ({
     )
     .onUpdate((event: GestureUpdateEvent<PinchGestureHandlerEventPayload>) => {
       scale.value = clamp(event.scale, minScale, maxScale);
-      focal.x.value = (center.x - initialFocal.x.value) * (scale.value - 1);
-      focal.y.value = (center.y - initialFocal.y.value) * (scale.value - 1);
+      focal.x.value =
+        (centerX.value - initialFocal.x.value) * (scale.value - 1);
+      focal.y.value =
+        (centerY.value - initialFocal.y.value) * (scale.value - 1);
     })
     .onEnd(() => {
       runOnJS(onPinchEnded)();
